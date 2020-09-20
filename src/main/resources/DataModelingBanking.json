@@ -1,0 +1,219 @@
+{
+  "ModelName": "Banking Model",
+  "ModelMetadata": {
+    "Author": "",
+    "DateCreated": "Sep 15, 2020, 08:00 PM",
+    "DateLastModified": "Sep 18, 2020, 07:12 PM",
+    "Description": "https://www.twitch.tv/videos/689452191",
+    "Version": "1.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "DataModelingBanking",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "PK",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "SK",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "GSI1PK",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "GSISK",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "dailyTotals",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "GSI2PK",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "GSI1",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "GSI1PK",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "GSISK",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "GSI2",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "GSI2PK",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "GSISK",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "2020-09-15T12:00:00.000Z#T1"
+          },
+          "type": {
+            "S": "deposit"
+          },
+          "GSI1PK": {
+            "S": "account1"
+          },
+          "GSISK": {
+            "S": "2020-09-15T12:00:00.000Z"
+          }
+        },
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "2020-09-15T11:00:00.000Z#T2"
+          },
+          "type": {
+            "S": "debit"
+          },
+          "GSI1PK": {
+            "S": "account1"
+          },
+          "GSISK": {
+            "S": "2020-09-15T11:00:00.000Z"
+          }
+        },
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "2020-09-15T13:00:00.000Z#T3"
+          },
+          "type": {
+            "S": "purchase"
+          },
+          "GSI1PK": {
+            "S": "purchase1"
+          },
+          "GSISK": {
+            "S": "2020-09-15T13:00:00.000Z"
+          },
+          "GSI2PK": {
+            "S": "product1"
+          }
+        },
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "A_RECORD"
+          },
+          "type": {
+            "S": "customer"
+          }
+        },
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "account1"
+          },
+          "type": {
+            "S": "account"
+          },
+          "GSI1PK": {
+            "S": "account1"
+          },
+          "GSISK": {
+            "S": "A#2020-09-15T12:00:00.000Z"
+          },
+          "dailyTotals": {
+            "M": {
+              "d20200915": {
+                "balance": 0,
+                "credits": 0,
+                "debits": 0,
+                "purchases": 0
+              }
+            }
+          },
+          "GSI2PK": {
+            "S": "ACCOUNT_TYPE_CONSUMER"
+          }
+        },
+        {
+          "PK": {
+            "S": "SUMMARY(0-N)"
+          },
+          "SK": {
+            "S": "A_RECORD"
+          },
+          "type": {
+            "S": "summary"
+          },
+          "dailyTotals": {
+            "M": {
+              "d20200915": {
+                "balance": 0,
+                "credits": 0,
+                "debits": 0,
+                "purchases": 0
+              }
+            }
+          }
+        },
+        {
+          "PK": {
+            "S": "customer1"
+          },
+          "SK": {
+            "S": "payment1"
+          },
+          "type": {
+            "S": "autopay"
+          },
+          "GSI1PK": {
+            "S": "customer1"
+          },
+          "GSISK": {
+            "S": "P#2020-09-30"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      }
+    }
+  ]
+}

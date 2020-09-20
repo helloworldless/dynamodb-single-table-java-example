@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+group 'com.davidagood'
+version '1.0.0-SNAPSHOT'
+sourceCompatibility = '11'
+
+dependencies {
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.864')
+    implementation  'com.amazonaws:aws-java-sdk-dynamodb'
+
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+//    implementation 'org.slf4j:slf4j-api:1.7.30'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+}
+
+application {
+    mainClassName = 'com.davidagood.dynamodb.App'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion "8.29"
+    configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
