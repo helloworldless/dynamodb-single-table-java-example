@@ -4,6 +4,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.davidagood.dynamodb.model.Account;
 import com.davidagood.dynamodb.model.Customer;
 import com.davidagood.dynamodb.repository.BankingDataRepository;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,13 +37,30 @@ public class App {
         var account = app.findAccountById(accountId);
         log.info("{}", account);
 
+        account.setLastAccessTime(ZonedDateTime.now(ZoneId.of("UTC")));
+        app.saveAccount(account);
+
+        var jessSmithId = UUID.randomUUID().toString();
         var jessSmith = Customer.builder()
-            .id("customer2")
+            .id(jessSmithId)
             .firstName("Jessica")
             .lastName("Smith")
             .build();
 
         app.saveCustomer(jessSmith);
+
+        var secondAccount = Account.builder()
+            .id(UUID.randomUUID().toString())
+            .customerId(jessSmithId)
+            .name("Another account with access time")
+            .lastAccessTime(ZonedDateTime.now(ZoneId.of("UTC")))
+            .build();
+
+        app.saveAccount(secondAccount);
+    }
+
+    private void saveAccount(Account account) {
+        this.bankingDataRepository.saveAccount(account);
     }
 
     private void saveCustomer(Customer customer) {
