@@ -1,6 +1,6 @@
 # DynamoDB Java Example
 
-Examples of working with DynamoDB using the Java AWS SDK.
+Examples of working with DynamoDB (single table design) using the Java AWS SDK.
 
 Also uses [DynamoDBMapper](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.html).
 
