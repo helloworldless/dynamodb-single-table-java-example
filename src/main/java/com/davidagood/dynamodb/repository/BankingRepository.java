@@ -12,27 +12,19 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class BankingDataRepository {
+public class BankingRepository {
 
     private final DynamoDBMapper mapper;
 
-    public BankingDataRepository(AmazonDynamoDB dynamoDB) {
+    public BankingRepository(AmazonDynamoDB dynamoDB) {
         this.mapper = new DynamoDBMapper(dynamoDB);
     }
 
     public Customer findCustomerById(String customerId) {
         try {
-            var queryExpression = new DynamoDBQueryExpression<Customer>()
-                .withKeyConditionExpression("#attributeKey = :attributeValue and SK = :sortValue")
-                .withExpressionAttributeNames(Map.of("#attributeKey", "PK"))
-                .withExpressionAttributeValues(Map.of(":attributeValue",
-                    new AttributeValue(customerId), ":sortValue", new AttributeValue(Customer.A_RECORD)));
-
-            var customerQueryResult = mapper.query(Customer.class, queryExpression);
-            return customerQueryResult.isEmpty() ? null : customerQueryResult.get(0);
-
+            return mapper.load(Customer.class, customerId, Customer.A_RECORD);
         } catch (Exception e) {
-            DynamoGeneratedBoilerplate.handleCommonErrors(e);
+            DynamoGeneratedBoilerplate.logCommonErrors(e);
             throw e;
         }
     }
@@ -52,12 +44,10 @@ public class BankingDataRepository {
                 .withExpressionAttributeNames(Map.of("#attributeKey", "GSI1PK"))
                 .withExpressionAttributeValues(Map.of(":attributeValue",
                     new AttributeValue(accountId), ":gsisk", new AttributeValue("A#")));
-
             var accountQueryResult = mapper.query(Account.class, queryExpression);
             return accountQueryResult.isEmpty() ? null : accountQueryResult.get(0);
-
         } catch (Exception e) {
-            DynamoGeneratedBoilerplate.handleCommonErrors(e);
+            DynamoGeneratedBoilerplate.logCommonErrors(e);
             throw e;
         }
     }
