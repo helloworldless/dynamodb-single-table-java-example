@@ -19,11 +19,14 @@ See data model JSON in `resources/DataModelingBanking.json`. This can be importe
 Example output:
 
 ```text
-20:02:09.807 [main] INFO com.davidagood.dynamodb.App - Finding customer by customerId=customer1
-20:02:10.322 [main] INFO com.davidagood.dynamodb.App - Customer(id=customer1, firstName=Sam, lastName=Jones)
-20:02:10.332 [main] INFO com.davidagood.dynamodb.App - Finding account by accountId=account1
-20:02:10.404 [main] INFO com.davidagood.dynamodb.App - Account(id=account1, name=My First Account, lastAccessTime=2020-09-15T12:00Z)
-20:02:10.406 [main] INFO com.davidagood.dynamodb.repository.BankingDataRepository - Started - Saving customer with customerId=customer2
-20:02:10.466 [main] INFO com.davidagood.dynamodb.repository.BankingDataRepository - Completed - Saving customer with customerId=customer2
-
+20:06:04.121 [main] INFO com.davidagood.dynamodb.App - Finding customer by customerId=customer1
+20:06:04.780 [main] INFO com.davidagood.dynamodb.App - Customer(id=customer1, firstName=Sam, lastName=Jones)
+20:06:04.809 [main] INFO com.davidagood.dynamodb.App - Finding account by accountId=account1
+20:06:04.899 [main] INFO com.davidagood.dynamodb.App - Account(customerId=customer1, id=account1, lastAccessTime=2020-09-21T00:30:12.596143Z, name=My First Account)
+20:06:04.921 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Started - Saving account with accountId=account1
+20:06:04.977 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Completed - Saving account with accountId=account1
+20:06:04.977 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Started - Saving customer with customerId=3db19ebc-256b-4011-be0e-59a34bb54ceb
+20:06:05.028 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Completed - Saving customer with customerId=3db19ebc-256b-4011-be0e-59a34bb54ceb
+20:06:05.028 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Started - Saving account with accountId=cf2b1907-a12d-4841-98d9-31596400b295
+20:06:05.080 [main] INFO com.davidagood.dynamodb.repository.BankingRepository - Completed - Saving account with accountId=cf2b1907-a12d-4841-98d9-31596400b295
 ```
