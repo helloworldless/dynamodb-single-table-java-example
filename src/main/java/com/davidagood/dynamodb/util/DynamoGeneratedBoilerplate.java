@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DynamoGeneratedBoilerplate {
 
-    public static void handleCommonErrors(Exception exception) {
+    public static void logCommonErrors(Exception exception) {
         try {
             throw exception;
         } catch (InternalServerErrorException isee) {
