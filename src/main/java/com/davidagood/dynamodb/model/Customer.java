@@ -16,15 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
+
     public static final String A_RECORD = "A_RECORD";
     public static final String TYPE = "CUSTOMER";
 
     @Getter(onMethod_ = {@DynamoDBHashKey(attributeName = "PK")})
     String id;
-    @Getter(onMethod_ = {@DynamoDBAttribute})
-    String firstName;
-    @Getter(onMethod_ = {@DynamoDBAttribute})
-    String lastName;
 
     @DynamoDBRangeKey(attributeName = "SK")
     public String getSortKey() {
@@ -37,6 +34,12 @@ public class Customer {
         }
         // No need to set it otherwise since getter returns static field
     }
+
+    @Getter(onMethod_ = {@DynamoDBAttribute})
+    String firstName;
+
+    @Getter(onMethod_ = {@DynamoDBAttribute})
+    String lastName;
 
     @DynamoDBAttribute
     public String getType() {

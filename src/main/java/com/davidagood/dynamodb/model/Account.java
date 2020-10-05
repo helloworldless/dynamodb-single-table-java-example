@@ -30,9 +30,11 @@ public class Account {
 
     @Getter(onMethod_ = {@DynamoDBRangeKey(attributeName = "SK")})
     String id;
+
     @Getter(onMethod_ = {@DynamoDBAttribute(attributeName = "GSISK")})
     @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
     ZonedDateTime lastAccessTime;
+
     @Getter(onMethod_ = {@DynamoDBAttribute(attributeName = "accountName")})
     String name;
 
@@ -45,7 +47,7 @@ public class Account {
         if (nonNull(this.id) && !this.id.equals(gsi1pk)) {
             throw new IllegalArgumentException(String.format("Expected SK=%s to match GSI1PK=%s", this.id, gsi1pk));
         }
-        // No action needed
+        // No need to set it otherwise since getter returns id field
     }
 
     @DynamoDBAttribute
